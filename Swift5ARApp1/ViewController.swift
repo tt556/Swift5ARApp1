@@ -20,14 +20,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        let text = SCNText(string: "空間に落書き！！", extrusionDepth: 10)
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.green
+        text.materials = [material]
         
-        // Set the scene to the view
-        sceneView.scene = scene
+        let node = SCNNode()
+        
+        //ココの数字を変えてみると面白い！！
+        node.position = SCNVector3(0, 0.02, -0.2)
+        node.scale = SCNVector3(0.01, 0.01, 0.01)
+        node.geometry = text
+        
+        sceneView.scene.rootNode.addChildNode(node)
+        sceneView.autoenablesDefaultLighting = true
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
